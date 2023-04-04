@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { web3 } from Web3;
+import { web3 } from 'Web3';
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
