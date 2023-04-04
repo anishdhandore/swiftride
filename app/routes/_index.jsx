@@ -1,6 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { ethers } from 'ethers';
+import { setFutureFlags } from "@remix-run/react";
+import ReactDOM from "react-dom";
+
+setFutureFlags({
+  v2_errorBoundary: true,
+  v2_normalizeFormMethod: true,
+  v2_meta: true,
+});
+
+ReactDOM.render(
+  
+);
+
+
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
