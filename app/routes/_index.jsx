@@ -49,11 +49,11 @@ export default function Index() {
         <br />
         Longitude: <span>{longitude}</span>
         <br />
-        {uniqueUserId && (
+        
         <p>
           Your unique user ID is: <strong>{uniqueUserId}</strong>
         </p>
-      )}
+      
       </div>
     </div>
   );
