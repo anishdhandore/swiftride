@@ -21,8 +21,8 @@ async function handleRequest(request) {
     // Set the unique user ID cookie in the response
     modifiedResponse.headers.append(
       'Set-Cookie',
-      `uniqueUserId=${uniqueUserId}; Expires=${expiryDate.toUTCString()}; Path=/; HttpOnly; Secure; SameSite=Lax`
-    );
+      `uniqueUserId=${uniqueUserId}; Expires=${expiryDate.toUTCString()}; Path=/; HttpOnly; Secure; SameSite=None`
+    );    
 
     return modifiedResponse;
   }
