@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { ethers } from 'ethers';
-import { setFutureFlags } from "@remix-run/react";
 import ReactDOM from "react-dom";
 
 setFutureFlags({
@@ -11,7 +10,8 @@ setFutureFlags({
 });
 
 ReactDOM.render(
-  
+  // This is v2 usage of catch and error boundary
+  // import { CatchBoundary as ErrorBoundary, ErrorBoundary as CatchBoundary } from "@remix-run/react";
 );
 
 
