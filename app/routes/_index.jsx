@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import Web3 from 'web3/dist/web3.min.js';
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
@@ -57,7 +56,7 @@ export default function Index() {
   }, []);
 
   //MetaMask
-  const checkMetaMaskAndConnect = async () => {
+  /*const checkMetaMaskAndConnect = async () => {
     if (typeof window.ethereum !== 'undefined') {
       const web3 = new Web3(window.ethereum);
   
@@ -74,7 +73,7 @@ export default function Index() {
     } else {
       console.log('MetaMask is not installed');
     }
-  };
+  };*/
   
   useEffect(() => {
     checkMetaMaskAndConnect();
