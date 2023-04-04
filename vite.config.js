@@ -1,27 +1,39 @@
-import { defineConfig } from 'vite';
-import path from 'path';
+import { nodePolyfills } from 'esbuild-plugin-node-polyfills';
 
-export default defineConfig({
-  resolve: {
-    alias: [
-      { find: 'crypto', replacement: 'crypto-browserify' },
-      { find: 'stream', replacement: 'stream-browserify' },
-      { find: 'buffer', replacement: 'buffer' },
-    ],
-  },
-  build: {
-    rollupOptions: {
-      plugins: [
-        // Fixes import issue in ethers
-        {
-          name: 'fix-ethers-import-issue',
-          resolveId(id) {
-            if (id === 'readable-stream') {
-              return path.resolve(__dirname, 'node_modules/readable-stream');
-            }
-          },
+export default {
+  plugins: [
+    nodePolyfills({
+      crypto: true,
+      http: true
+    }),
+    {
+      name: 'polyfill-crypto',
+      enforce: 'pre',
+      apply: 'build',
+      transformIndexHtml: {
+        enforce: 'pre',
+        transform(html) {
+          return html.replace(
+            '</head>',
+            '<script type="module">import "crypto-browserify";</script></head>'
+          );
         },
-      ],
+      },
     },
-  },
-});
+    {
+      name: 'polyfill-http',
+      enforce: 'pre',
+      apply: 'build',
+      transformIndexHtml: {
+        enforce: 'pre',
+        transform(html) {
+          return html.replace(
+            '</head>',
+            '<script type="module">import "stream-http";</script></head>'
+          );
+        },
+      },
+    },
+  ],
+};
+
