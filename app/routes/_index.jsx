@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import Web3 from 'web3';
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
@@ -54,6 +55,31 @@ export default function Index() {
 
     setUniqueUserId(userId);
   }, []);
+
+  //MetaMask
+  const checkMetaMaskAndConnect = async () => {
+    if (typeof window.ethereum !== 'undefined') {
+      const web3 = new Web3(window.ethereum);
+  
+      try {
+        // Request account access
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+  
+        // Set connected account
+        const connectedAccount = accounts[0];
+        console.log('Connected account:', connectedAccount);
+      } catch (error) {
+        console.error('User denied account access');
+      }
+    } else {
+      console.log('MetaMask is not installed');
+    }
+  };
+  
+  useEffect(() => {
+    checkMetaMaskAndConnect();
+  }, []);
+  
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
