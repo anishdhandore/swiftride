@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Web3 } from 'web3';
+import { ethers } from 'ethers';
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
@@ -56,10 +56,10 @@ export default function Index() {
     setUniqueUserId(userId);
   }, []);
 
-  MetaMask
+  //MetaMask
   const checkMetaMaskAndConnect = async () => {
     if (typeof window.ethereum !== 'undefined') {
-      const web3 = new Web3(window.ethereum);
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
   
       try {
         // Request account access
@@ -75,6 +75,10 @@ export default function Index() {
       console.log('MetaMask is not installed');
     }
   };
+  
+  useEffect(() => {
+    checkMetaMaskAndConnect();
+  }, []);
   
   useEffect(() => {
     checkMetaMaskAndConnect();
