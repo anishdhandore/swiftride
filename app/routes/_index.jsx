@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
@@ -38,7 +39,20 @@ export default function Index() {
       if (parts.length === 2) return parts.pop().split(';').shift();
     };
 
-    setUniqueUserId(getCookie('uniqueUserId'));
+    const setCookie = (name, value, days) => {
+      const expires = new Date();
+      expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+      document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax`;
+    };
+
+    let userId = getCookie('uniqueUserId');
+
+    if (!userId) {
+      userId = uuidv4();
+      setCookie('uniqueUserId', userId, 365);
+    }
+
+    setUniqueUserId(userId);
   }, []);
 
   return (
