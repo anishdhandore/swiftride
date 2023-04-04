@@ -3,18 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { ethers } from 'ethers';
 import ReactDOM from "react-dom";
 
-setFutureFlags({
-  v2_errorBoundary: true,
-  v2_normalizeFormMethod: true,
-  v2_meta: true,
-});
-
 ReactDOM.render(
   // This is v2 usage of catch and error boundary
   // import { CatchBoundary as ErrorBoundary, ErrorBoundary as CatchBoundary } from "@remix-run/react";
 );
-
-
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
