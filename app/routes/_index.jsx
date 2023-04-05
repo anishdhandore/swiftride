@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { ethers } from 'ethers';
-import ReactDOM from "react-dom";
-
-ReactDOM.render(
-  // This is v2 usage of catch and error boundary
-  // import { CatchBoundary as ErrorBoundary, ErrorBoundary as CatchBoundary } from "@remix-run/react";
-);
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
@@ -71,6 +65,7 @@ export default function Index() {
       try {
         // Request account access
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const isBrowser = () => typeof window !== 'undefined';
   
         // Set connected account
         const connectedAccount = accounts[0];
@@ -84,10 +79,10 @@ export default function Index() {
   };
   
   useEffect(() => {
-    if (typeof window.ethereum === 'undefined') {
+    if (isBrowser() && typeof window.ethereum === 'undefined') {
       setShowWalletPrompt(true);
     }
-  }, []);
+  }, []);  
   
   useEffect(() => {
     checkMetaMaskAndConnect();
