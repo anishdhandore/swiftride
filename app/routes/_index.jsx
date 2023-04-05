@@ -7,6 +7,7 @@ export default function Index() {
   const [longitude, setLongitude] = useState('-');
   const [uniqueUserId, setUniqueUserId] = useState(null);
   const [showWalletPrompt, setShowWalletPrompt] = useState(false);
+  const [connectedAccount, setConnectedAccount] = useState(null);
 
   //Geolocation
   useEffect(() => {
@@ -67,8 +68,9 @@ export default function Index() {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
   
         // Set connected account
-        const connectedAccount = accounts[0];
-        console.log('Connected account:', connectedAccount);
+        const account = accounts[0];
+        console.log('Connected account:', account);
+        setConnectedAccount(account);
       } catch (error) {
         console.error('User denied account access');
       }
