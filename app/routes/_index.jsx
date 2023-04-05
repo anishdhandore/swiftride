@@ -65,7 +65,6 @@ export default function Index() {
       try {
         // Request account access
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const isBrowser = () => typeof window !== 'undefined';
   
         // Set connected account
         const connectedAccount = accounts[0];
@@ -79,6 +78,7 @@ export default function Index() {
   };
   
   useEffect(() => {
+    const isBrowser = () => typeof window !== 'undefined';
     if (isBrowser() && typeof window.ethereum === 'undefined') {
       setShowWalletPrompt(true);
     }
