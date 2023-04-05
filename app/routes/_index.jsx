@@ -12,6 +12,7 @@ export default function Index() {
   const [latitude, setLatitude] = useState('-');
   const [longitude, setLongitude] = useState('-');
   const [uniqueUserId, setUniqueUserId] = useState(null);
+  const [showWalletPrompt, setShowWalletPrompt] = useState(false);
 
   //Geolocation
   useEffect(() => {
@@ -83,12 +84,15 @@ export default function Index() {
   };
   
   useEffect(() => {
-    checkMetaMaskAndConnect();
+    if (typeof window.ethereum === 'undefined') {
+      setShowWalletPrompt(true);
+    }
   }, []);
   
   useEffect(() => {
     checkMetaMaskAndConnect();
   }, []);
+  
   
 
   return (
@@ -103,7 +107,17 @@ export default function Index() {
         <p>
           Your unique user ID is: <strong>{uniqueUserId}</strong>
         </p>
-      
+        {showWalletPrompt && (
+          <div>
+            <p>
+              No wallet detected. Please install a wallet like{' '}
+              <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
+              MetaMask
+              </a>{' '}
+              to interact with this application.
+            </p>
+          </div>
+          )}
       </div>
     </div>
   );
