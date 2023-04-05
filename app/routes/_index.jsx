@@ -102,7 +102,7 @@ export default function Index() {
         <p>
           Your unique user ID is: <strong>{uniqueUserId}</strong>
         </p>
-        {showWalletPrompt && (
+        {showWalletPrompt ? (
           <div>
             <p>
               No wallet detected. Please install a wallet like{' '}
@@ -112,6 +112,10 @@ export default function Index() {
               to interact with this application.
             </p>
           </div>
+          ) : (
+            <div>
+              <p>Connected account: {connectedAccount}</p>
+            </div>
           )}
       </div>
     </div>
