@@ -94,7 +94,7 @@ export default function Index() {
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <h1>Hello</h1>
+      <h1>Swiftride</h1>
       <div id="location">
         Latitude: <span>{latitude}</span>
         <br />
@@ -115,9 +115,15 @@ export default function Index() {
             </p>
           </div>
           ) : (
-            <div>
-              <p>Connected account: {connectedAccount}</p>
+            connectedAccount && connectedAccount !== "" ? (
+              <div>
+                <p>Connected account: {connectedAccount}</p>
+              </div>
+            ) : (
+              <div>
+              <p>Please connect your wallet to use this app</p>
             </div>
+            )
           )}
       </div>
     </div>
