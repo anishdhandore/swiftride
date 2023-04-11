@@ -12,11 +12,15 @@ export default function Driver({ onReturnHome }) {
       <h2>Driver</h2>
       <button onClick={onReturnHome} className="return-home">Home</button>
       <ul>
-        {trips.map((trip, index) => (
-          <li key={index}>
-            {trip.pickupLocation} - {trip.dropoffLocation}
-          </li>
-        ))}
+      {trips ? (
+        trips.map((trip, index) => (
+            <li key={index}>
+                {trip.pickupLocation} - {trip.dropoffLocation}
+            </li>
+        ))
+    ) : (
+        <p>Loading trips...</p>
+    )}
       </ul>
     </div>
   );
