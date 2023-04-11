@@ -1,3 +1,5 @@
+
+import "/styles/styles.css";
 import {
   Links,
   LiveReload,
@@ -6,12 +8,17 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { LinksFunction } from "remix";
 
 export const meta = () => ({
   charset: "utf-8",
   title: "Swiftride",
   viewport: "width=device-width,initial-scale=1",
 });
+
+export const LinksFunction = () => {
+  return [{ rel: "stylesheet", href: "/styles/styles.css" }];
+};
 
 export default function App() {
   return (
