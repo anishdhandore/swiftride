@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { ethers } from 'ethers';
+import Rider from './Rider';
+import Driver from './Driver';
+
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
@@ -8,6 +11,7 @@ export default function Index() {
   const [uniqueUserId, setUniqueUserId] = useState(null);
   const [showWalletPrompt, setShowWalletPrompt] = useState(false);
   const [connectedAccount, setConnectedAccount] = useState(null);
+  const [userType, setUserType] = useState(null);
 
   //Geolocation
   useEffect(() => {
@@ -86,47 +90,62 @@ export default function Index() {
     }
   }, []);  
   
-  useEffect(() => {
+  /*useEffect(() => {
     checkMetaMaskAndConnect();
-  }, []);
+  }, []);*/
   
-  
+  //  Trip submission
+  const handleUserTypeSelection = (type) => {
+    setUserType(type);
+  };
+
+  const handleTripSubmitted = () => {
+    alert('Trip submitted!'); // Replace this with desired behavior after trip submission
+  };
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
       <h1>Swiftride</h1>
-      <div id="location">
-        Latitude: <span>{latitude}</span>
-        <br />
-        Longitude: <span>{longitude}</span>
-        <br />
-        
-        <p>
-          Your unique user ID is: <strong>{uniqueUserId}</strong>
-        </p>
-        {showWalletPrompt ? (
-          <div>
-            <p>
-              No wallet detected. Please install a wallet like{' '}
-              <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
-              MetaMask
-              </a>{' '}
-              to interact with this application.
-            </p>
-          </div>
+      {connectedAccount ? (
+        userType ? (
+          userType === 'rider' ? (
+            <Rider onTripSubmitted={handleTripSubmitted} />
           ) : (
-            connectedAccount && connectedAccount !== "" ? (
-              <div>
-                <p>Connected account: {connectedAccount}</p>
-              </div>
-            ) : (
-              <div>
-              <p>Please connect your wallet to use this app</p>
+            <Driver />
+          )
+        ) : (
+          <div>
+            <h2>Select User Type</h2>
+            <button onClick={() => handleUserTypeSelection('rider')}>Rider</button>
+            <button onClick={() => handleUserTypeSelection('driver')}>Driver</button>
+            <div id="location">
+              Latitude: <span>{latitude}</span>
+              <br />
+              Longitude: <span>{longitude}</span>
+              <br />
+              <p>
+                Your unique user ID is: <strong>{uniqueUserId}</strong>
+              </p>
             </div>
-            )
-          )}
-      </div>
+          </div>
+        )
+      ) : showWalletPrompt ? (
+        <div>
+          <p>
+            No wallet detected. Please install a wallet like{' '}
+            <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
+              MetaMask
+            </a>{' '}
+            to interact with this application.
+          </p>
+        </div>
+      ) : (
+        <div>
+          <p>Please connect your wallet to use this app</p>
+          <button onClick={checkMetaMaskAndConnect}>Connect Wallet</button>
+        </div>
+      )}
     </div>
   );
-}
+}  
 
