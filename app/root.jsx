@@ -1,4 +1,4 @@
-import "/styles/styles.css";
+import "./styles/styles.css";
 import {
   Links,
   LiveReload,
@@ -19,7 +19,7 @@ export default function App() {
     <html lang="en">
       <head>
         <Meta />
-        <Links rel="stylesheet" href="/styles/styles.css" />
+        <Links rel="stylesheet" href="./styles/styles.css" />
       </head>
       <body>
         <Outlet />
