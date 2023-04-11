@@ -18,7 +18,7 @@ export default function App() {
     <html lang="en">
       <head>
         <Meta />
-        <Links rel="stylesheet" href="/styles/styles.css" />
+        <Links rel="stylesheet" href="../styles/styles.css" />
       </head>
       <body>
         <Outlet />
