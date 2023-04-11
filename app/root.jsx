@@ -8,7 +8,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { LinksFunction } from "remix";
 
 export const meta = () => ({
   charset: "utf-8",
@@ -16,16 +15,12 @@ export const meta = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
-export const LinksFunction = () => {
-  return [{ rel: "stylesheet", href: "/styles/styles.css" }];
-};
-
 export default function App() {
   return (
     <html lang="en">
       <head>
         <Meta />
-        <Links />
+        <Links rel="stylesheet" href="/styles/styles.css" />
       </head>
       <body>
         <Outlet />
