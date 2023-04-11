@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ethers } from 'ethers';
 import Rider from './Rider';
 import Driver from './Driver';
+import '../styles/styles.css';
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
