@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ethers } from 'ethers';
 import Rider from './Rider';
 import Driver from './Driver';
+import './styles.css';
 
 
 export default function Index() {
@@ -94,30 +95,41 @@ export default function Index() {
     checkMetaMaskAndConnect();
   }, []);*/
   
-  //  Trip submission
+  //  User type
   const handleUserTypeSelection = (type) => {
     setUserType(type);
   };
 
+  const handleReturnHome = () => {
+    setUserType(null);
+  };
+  
+  // Trip data
   const handleTripSubmitted = () => {
     alert('Trip submitted!'); // Replace this with desired behavior after trip submission
   };
 
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <h1>Swiftride</h1>
-      {connectedAccount ? (
-        userType ? (
-          userType === 'rider' ? (
-            <Rider onTripSubmitted={handleTripSubmitted} />
+    <div className="app">
+      <header>
+        <h1 className="app-title">Swiftride</h1>
+        <p className="app-description">
+          A decentralized ridesharing platform powered by the Ethereum blockchain.
+        </p>
+      </header>
+      <nav className="user-type-selection">
+        <button onClick={() => handleUserTypeSelection('rider')}>Rider</button>
+        <button onClick={() => handleUserTypeSelection('driver')}>Driver</button>
+      </nav>
+      <div className="main-content">
+        {connectedAccount ? (
+          userType ? (
+            userType === 'rider' ? (
+              <Rider onTripSubmitted={handleTripSubmitted} onReturnHome={handleReturnHome} />
+            ) : (
+              <Driver onReturnHome={handleReturnHome} />
+            )
           ) : (
-            <Driver />
-          )
-        ) : (
-          <div>
-            <h2>Select User Type</h2>
-            <button onClick={() => handleUserTypeSelection('rider')}>Rider</button>
-            <button onClick={() => handleUserTypeSelection('driver')}>Driver</button>
             <div id="location">
               Latitude: <span>{latitude}</span>
               <br />
@@ -127,8 +139,7 @@ export default function Index() {
                 Your unique user ID is: <strong>{uniqueUserId}</strong>
               </p>
             </div>
-          </div>
-        )
+        ) 
       ) : showWalletPrompt ? (
         <div>
           <p>
@@ -145,6 +156,7 @@ export default function Index() {
           <button onClick={checkMetaMaskAndConnect}>Connect Wallet</button>
         </div>
       )}
+      </div>
     </div>
   );
 }  
