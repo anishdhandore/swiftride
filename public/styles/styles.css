@@ -28,6 +28,10 @@ header {
   margin: 0;
 }
 
+.page-title {
+  margin: 20px 0;
+}
+
 .app-description {
   color: #7f8c8d;
   font-size: 1rem;
@@ -53,7 +57,8 @@ header {
 .navbar {
   display: flex;
   justify-content: space-around;
-  background-color: #3498db;
+  background-color: #1abc9c;
+  border-radius: 5px;
   padding: 10px;
 }
 
@@ -65,27 +70,11 @@ header {
   cursor: pointer;
   outline: none;
   transition: 0.3s;
+  margin: 0 0 10px;
 }
 
 .navbar button:hover {
   color: #1abc9c;
-}
-
-.return-home {
-  background-color: #1abc9c;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  font-size: 1rem;
-  padding: 5px 10px;
-  cursor: pointer;
-  outline: none;
-  transition: 0.3s;
-  margin: 0 0 10px;
-}
-
-.return-home:hover {
-  background-color: #3498db;
 }
 
 input[type="text"] {

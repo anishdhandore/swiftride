@@ -10,7 +10,6 @@ export default function Driver({ onReturnHome }) {
   return (
     <div>
       <h2 className="page-title">Driver</h2>
-      <button onClick={onReturnHome} className="return-home">Home</button>
       <ul>
       {trips ? (
         trips.map((trip, index) => (
