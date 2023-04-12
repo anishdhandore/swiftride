@@ -70,7 +70,6 @@ header {
   cursor: pointer;
   outline: none;
   transition: 0.3s;
-  margin: 0 0 10px;
 }
 
 .navbar button:hover {
