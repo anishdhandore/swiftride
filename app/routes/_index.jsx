@@ -110,6 +110,9 @@ export default function Index() {
 
   return (
     <div className="app">
+      <head>
+        <Link rel="stylesheet" href="../styles/styles.css" />
+      </head>
       <header>
         <h1 className="app-title">Swiftride</h1>
         <p className="app-description">
