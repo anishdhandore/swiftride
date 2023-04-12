@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ethers } from 'ethers';
 import Rider from './Rider';
 import Driver from './Driver';
-import '../styles/styles.css';
+
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
@@ -111,7 +111,7 @@ export default function Index() {
   return (
     <div className="app">
       <head>
-        <Link rel="stylesheet" href="../styles/styles.css" />
+        <link rel="stylesheet" href="/styles/styles.css" />
       </head>
       <header>
         <h1 className="app-title">Swiftride</h1>
