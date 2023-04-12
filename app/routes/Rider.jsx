@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LocationInput from './LocationInput';
 
 export default function Rider({ onTripSubmitted, onReturnHome }) {
   const [pickupLocation, setPickupLocation] = useState('');
@@ -19,26 +20,24 @@ export default function Rider({ onTripSubmitted, onReturnHome }) {
 
   return (
     <div>
-      <h2>Rider</h2>
+      <h2 className="page-title">Rider</h2>
       <button onClick={onReturnHome} className="return-home">Home</button>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="pickupLocation">Pick-up location:</label>
-        <input
-          type="text"
+        <LocationInput
           id="pickupLocation"
+          label="Pick-up location:"
           value={pickupLocation}
-          onChange={(e) => setPickupLocation(e.target.value)}
+          onChange={setPickupLocation}
         />
         <br />
-        <label htmlFor="dropoffLocation">Drop-off location:</label>
-        <input
-          type="text"
+        <LocationInput
           id="dropoffLocation"
+          label="Drop-off location:"
           value={dropoffLocation}
-          onChange={(e) => setDropoffLocation(e.target.value)}
+          onChange={setDropoffLocation}
         />
         <br />
-        <button type="submit">Submit</button>
+        <button type="submit" className="submit-button">Submit</button>
       </form>
     </div>
   );

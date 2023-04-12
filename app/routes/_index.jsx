@@ -4,7 +4,6 @@ import { ethers } from 'ethers';
 import Rider from './Rider';
 import Driver from './Driver';
 
-
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
   const [longitude, setLongitude] = useState('-');
@@ -111,18 +110,24 @@ export default function Index() {
   return (
     <div className="app">
       <head>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpOazIX4wx6P2FtGFbPlmA1y5GvNsl8UA&libraries=places"></script>
         <link rel="stylesheet" href="/styles/styles.css" />
       </head>
-      <header>
-        <h1 className="app-title">Swiftride</h1>
-        <p className="app-description">
-          A decentralized ridesharing platform powered by the Ethereum blockchain.
-        </p>
-      </header>
-      <nav className="user-type-selection">
-        <button onClick={() => handleUserTypeSelection('rider')}>Rider</button>
-        <button onClick={() => handleUserTypeSelection('driver')}>Driver</button>
-      </nav>
+      {connectedAccount && (
+        <nav className="navbar">
+          <button onClick={() => handleUserTypeSelection('rider')}>Rider</button>
+          <button onClick={() => handleUserTypeSelection('driver')}>Driver</button>
+          <button onClick={handleReturnHome}>Home</button>
+        </nav>
+      )}
+      {connectedAccount && !userType && (
+        <header>
+          <h1 className="app-title">Swiftride</h1>
+          <p className="app-description">
+            A decentralized ridesharing platform powered by the Ethereum blockchain.
+          </p>
+        </header>
+      )}
       <div className="main-content">
         {connectedAccount ? (
           userType ? (
@@ -141,23 +146,23 @@ export default function Index() {
                 Your unique user ID is: <strong>{uniqueUserId}</strong>
               </p>
             </div>
-        ) 
-      ) : showWalletPrompt ? (
-        <div>
-          <p>
-            No wallet detected. Please install a wallet like{' '}
-            <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
-              MetaMask
-            </a>{' '}
-            to interact with this application.
-          </p>
-        </div>
-      ) : (
-        <div>
-          <p>Please connect your wallet to use this app</p>
-          <button onClick={checkMetaMaskAndConnect}>Connect Wallet</button>
-        </div>
-      )}
+          )
+        ) : showWalletPrompt ? (
+          <div>
+            <p>
+              No wallet detected. Please install a wallet like{' '}
+              <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
+                MetaMask
+              </a>{' '}
+              to interact with this application.
+            </p>
+          </div>
+        ) : (
+          <div>
+            <p>Please connect your wallet to use this app</p>
+            <button className="connect-wallet" onClick={checkMetaMaskAndConnect}>Connect Wallet</button>
+          </div>
+        )}
       </div>
     </div>
   );
