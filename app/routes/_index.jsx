@@ -115,9 +115,9 @@ export default function Index() {
       </head>
       {connectedAccount && (
         <nav className="navbar">
+          <button onClick={handleReturnHome}>Home</button>
           <button onClick={() => handleUserTypeSelection('rider')}>Rider</button>
           <button onClick={() => handleUserTypeSelection('driver')}>Driver</button>
-          <button onClick={handleReturnHome}>Home</button>
         </nav>
       )}
       {connectedAccount && !userType && (
