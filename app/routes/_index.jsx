@@ -132,9 +132,9 @@ export default function Index() {
         {connectedAccount ? (
           userType ? (
             userType === 'rider' ? (
-              <Rider onTripSubmitted={handleTripSubmitted} onReturnHome={handleReturnHome} />
+              <Rider onTripSubmitted={handleTripSubmitted} onReturnHome={handleReturnHome} userType={userType}/>
             ) : (
-              <Driver onReturnHome={handleReturnHome} />
+              <Driver onReturnHome={handleReturnHome} userType={userType} />
             )
           ) : (
             <div id="location">

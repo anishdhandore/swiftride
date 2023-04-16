@@ -1,7 +1,13 @@
 [
 	{
-		"inputs": [],
-		"name": "getTripCount",
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "activeTrips",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -15,19 +21,71 @@
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "_tripId",
+				"type": "uint256"
+			}
+		],
+		"name": "completeTrip",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "string",
 				"name": "_pickupLocation",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "_dropoffLocation",
+				"name": "_dropOffLocation",
 				"type": "string"
 			}
 		],
-		"name": "storeTrip",
+		"name": "createTrip",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getActiveTripCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_tripId",
+				"type": "uint256"
+			}
+		],
+		"name": "selectTrip",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "tripId",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -41,9 +99,9 @@
 		"name": "trips",
 		"outputs": [
 			{
-				"internalType": "address",
-				"name": "rider",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
 			},
 			{
 				"internalType": "string",
@@ -52,8 +110,28 @@
 			},
 			{
 				"internalType": "string",
-				"name": "dropoffLocation",
+				"name": "dropOffLocation",
 				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "rider",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "driver",
+				"type": "address"
+			},
+			{
+				"internalType": "bool",
+				"name": "active",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "completed",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",

@@ -107,4 +107,43 @@ input[type="text"]:focus {
 .submit-button:hover {
   background-color: #3498db;
 }
-  
+
+.trip-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trip-info {
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+.trips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.select-trip {
+  background-color: #1abc9c;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1rem;
+  padding: 5px 10px;
+  cursor: pointer;
+  outline: none;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+.select-trip:hover {
+  background-color: #3498db;
+}
