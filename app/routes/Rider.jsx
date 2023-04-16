@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+import { ethers } from 'ethers';
 import LocationInput from './LocationInput';
+import tripStorageABI from '../contracts/TripStorageABI.json'; // Import the ABI of the contract
+
+const tripStorageAddress = '0xaF3ae0572705112aFD9eAf1ECAD3a596bcC2042B'; // Replace with the address of the deployed contract
 
 export default function Rider({ onTripSubmitted }) {
   const [pickupLocation, setPickupLocation] = useState('');
@@ -13,9 +17,20 @@ export default function Rider({ onTripSubmitted }) {
         return;
       }
 
-    // Upload trip to IPFS here
+     // Interact with the smart contract to store the trip data
+     if (typeof window.ethereum !== 'undefined') {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const tripStorage = new ethers.Contract(tripStorageAddress, tripStorageABI, signer);
 
-    onTripSubmitted();
+      try {
+        const tx = await tripStorage.storeTrip(pickupLocation, dropoffLocation);
+        await tx.wait();
+        onTripSubmitted();
+      } catch (error) {
+        console.error('Error storing trip:', error);
+      }
+    }
   };
 
   return (

@@ -1,0 +1,62 @@
+[
+	{
+		"inputs": [],
+		"name": "getTripCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_pickupLocation",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_dropoffLocation",
+				"type": "string"
+			}
+		],
+		"name": "storeTrip",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "trips",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "rider",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "pickupLocation",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "dropoffLocation",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
