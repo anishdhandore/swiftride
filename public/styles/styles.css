@@ -125,12 +125,6 @@ input[type="text"]:focus {
   line-height: 1.4;
 }
 
-.trips-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 .select-trip {
   background-color: #1abc9c;
   border: none;
@@ -141,7 +135,12 @@ input[type="text"]:focus {
   cursor: pointer;
   outline: none;
   transition: 0.3s;
-  margin-top: 10px;
+}
+
+.trips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .select-trip:hover {

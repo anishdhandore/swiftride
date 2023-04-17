@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
 import LocationInput from './LocationInput';
-import tripStorageABI from '../contracts/TripStorageABI.json'; // Import the ABI of the contract
+import tripStorageABI from '../contracts/TripStorageABI.json'; // ABI of the contract
 
-const tripStorageAddress = '0x8072578038B32e38B8aECB524A20df0D4d47Cb97'; // Replace with the address of the deployed contract
+const tripStorageAddress = '0x52455f9ea950F9A7cDA7d76E314Bb06D7f57abA2'; // Address of the deployed contract
 
 export default function Rider({ onTripSubmitted }) {
   const [pickupLocation, setPickupLocation] = useState('');

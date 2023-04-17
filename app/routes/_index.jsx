@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { ethers } from 'ethers';
 import Rider from './Rider';
 import Driver from './Driver';
+import TripStatus from './TripStatus';
+import tripStorageABI from '../contracts/TripStorageABI.json'; // ABI of the contract
+
+const tripStorageAddress = '0x52455f9ea950F9A7cDA7d76E314Bb06D7f57abA2'; // Address of the deployed contract
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
   const [longitude, setLongitude] = useState('-');
-  const [uniqueUserId, setUniqueUserId] = useState(null);
   const [showWalletPrompt, setShowWalletPrompt] = useState(false);
   const [connectedAccount, setConnectedAccount] = useState(null);
   const [userType, setUserType] = useState(null);
+  const [tripStatus, setTripStatus] = useState(null);
+  const [activeTrips, setActiveTrips] = useState([]);
 
   //Geolocation
   useEffect(() => {
@@ -35,30 +39,6 @@ export default function Index() {
     } else {
       console.warn('Geolocation is not supported by your browser');
     }
-  }, []);
-
-  //Cookie
-  useEffect(() => {
-    const getCookie = (name) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-    };
-
-    const setCookie = (name, value, days) => {
-      const expires = new Date();
-      expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-      document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax`;
-    };
-
-    let userId = getCookie('uniqueUserId');
-
-    if (!userId) {
-      userId = uuidv4();
-      setCookie('uniqueUserId', userId, 365);
-    }
-
-    setUniqueUserId(userId);
   }, []);
 
   //MetaMask
@@ -89,10 +69,6 @@ export default function Index() {
     }
   }, []);  
   
-  /*useEffect(() => {
-    checkMetaMaskAndConnect();
-  }, []);*/
-  
   //  User type
   const handleUserTypeSelection = (type) => {
     setUserType(type);
@@ -101,16 +77,59 @@ export default function Index() {
   const handleReturnHome = () => {
     setUserType(null);
   };
-  
-  // Trip data
+
   const handleTripSubmitted = () => {
-    alert('Trip submitted!'); // Replace this with desired behavior after trip submission
+    setUserType(null);
+    setTripStatus('rider');
   };
 
+  const handleTripSelected = (tripId) => {
+    const trip = activeTrips.find((trip) => trip.id === tripId);
+    if (trip.rider === connectedAccount || trip.driver === connectedAccount) {
+      setTripStatus('driver');
+    }
+  };
+
+  const fetchActiveTrips = async () => {
+    if (typeof window.ethereum !== 'undefined') {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const tripStorage = new ethers.Contract(tripStorageAddress, tripStorageABI, provider);
+  
+      try {
+        const activeTripCount = await tripStorage.getActiveTripCount();
+        const fetchedTrips = [];
+  
+        for (let i = 0; i < activeTripCount; i++) {
+          const tripId = await tripStorage.activeTrips(i);
+          const trip = await tripStorage.trips(tripId);
+  
+          fetchedTrips.push({
+            id: trip.id,
+            rider: trip.rider,
+            driver: trip.driver,
+            pickupLocation: trip.pickupLocation,
+            dropoffLocation: trip.dropOffLocation,
+            active: trip.active,
+            completed: trip.completed,
+          });
+        }
+  
+        setActiveTrips(fetchedTrips);
+      } catch (error) {
+        console.error('Error fetching active trips:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchActiveTrips();
+  }, [connectedAccount]);
+
+  console.log('Active Trips:', activeTrips);
   return (
     <div className="app">
       <head>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpOazIX4wx6P2FtGFbPlmA1y5GvNsl8UA&libraries=places"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpOazIX4wx6P2FtGFbPlmA1y5GvNsl8UA&libraries=places"></script>
         <link rel="stylesheet" href="/styles/styles.css" />
       </head>
       {connectedAccount && (
@@ -132,19 +151,33 @@ export default function Index() {
         {connectedAccount ? (
           userType ? (
             userType === 'rider' ? (
-              <Rider onTripSubmitted={handleTripSubmitted} onReturnHome={handleReturnHome} userType={userType}/>
+              <Rider onTripSubmitted={handleTripSubmitted} onReturnHome={handleReturnHome} userType={userType} />
             ) : (
-              <Driver onReturnHome={handleReturnHome} userType={userType} />
+              <Driver onTripSelected={handleTripSelected} onReturnHome={handleReturnHome} userType={userType} />
             )
           ) : (
-            <div id="location">
-              Latitude: <span>{latitude}</span>
-              <br />
-              Longitude: <span>{longitude}</span>
-              <br />
-              <p>
-                Your unique user ID is: <strong>{uniqueUserId}</strong>
-              </p>
+            <div>
+              {!userType && activeTrips.length > 0 && (
+                <div>
+                  {activeTrips.map((trip) => {
+                    // Add a console log to check if the TripStatus component is being rendered
+                    console.log('Rendering TripStatus for trip ID:', trip.id);
+
+                    return (
+                      <TripStatus key={trip.id} userType={tripStatus} selectedTrip={trip} connectedAccount={connectedAccount} />
+                    );
+                  })}
+                </div>
+              )}
+              <div id="location">
+                Latitude: <span>{latitude}</span>
+                <br />
+                Longitude: <span>{longitude}</span>
+                <br />
+                <p>
+                  Your connected account is: <strong>{connectedAccount}</strong>
+                </p>
+              </div>
             </div>
           )
         ) : showWalletPrompt ? (
@@ -165,6 +198,6 @@ export default function Index() {
         )}
       </div>
     </div>
-  );
-}  
+  );  
+}
 

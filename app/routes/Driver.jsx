@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import tripStorageABI from '../contracts/TripStorageABI.json'; // Import the ABI of the contract
+import tripStorageABI from '../contracts/TripStorageABI.json'; // ABI of the contract
 import Trips from './Trips';
 
-const tripStorageAddress = '0x8072578038B32e38B8aECB524A20df0D4d47Cb97'; // Replace with the address of the deployed contract
+const tripStorageAddress = '0x52455f9ea950F9A7cDA7d76E314Bb06D7f57abA2'; // Address of the deployed contract
 
-export default function Driver({ onReturnHome }) {
+export default function Driver({ onTripSelected, onReturnHome }) {
   const [trips, setTrips] = useState([]);
 
   useEffect(() => {
@@ -22,6 +22,7 @@ export default function Driver({ onReturnHome }) {
           for (let i = 0; i < activeTripCount; i++) {
             const tripId = await tripStorage.activeTrips(i);
             const trip = await tripStorage.trips(tripId);
+            // Don't print trips submitted by yourself
             if (trip.rider !== currentUserAddress) {
               fetchedTrips.push({
                 id: trip.id,
@@ -49,11 +50,12 @@ export default function Driver({ onReturnHome }) {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const tripStorage = new ethers.Contract(tripStorageAddress, tripStorageABI, signer);
-  
+
       try {
         const tx = await tripStorage.selectTrip(tripId);
         await tx.wait();
         console.log('Trip accepted:', tripId);
+        onTripSelected(tripId, connectedAccount); // Pass the driver's connected account
       } catch (error) {
         console.error('Error accepting trip:', error);
       }
