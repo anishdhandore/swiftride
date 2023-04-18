@@ -7,7 +7,7 @@ export default function TripStatus({ userType, selectedTrip, connectedAccount })
 
   return (
     <div>
-      <h2 className="page-title">{userType === 'rider' ? 'Rider' : 'Driver'} Trip Status</h2>
+      <h2 className="page-header">{userType === 'rider' ? 'Rider' : 'Driver'} Trip Status</h2>
       <p>Running total and trip status will be displayed here.</p>
       <hr />
     </div>

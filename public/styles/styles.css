@@ -4,6 +4,7 @@ body {
   background-color: #f2f2f2;
   background-image: linear-gradient(to right, #a8c0ff, #3f2b96);
   background-size: cover;
+  margin: 0;
 }
 
 .app {
@@ -17,6 +18,20 @@ body {
   border-radius: 10px;
 }
 
+/* Responsive styles */
+@media (max-width: 768px) {
+  .app {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app {
+    padding: 10px;
+  }
+}
+/* End of responsive styles */
+
 header {
   text-align: center;
   margin: 20px;
@@ -29,6 +44,16 @@ header {
 }
 
 .page-title {
+  color: #3498db;
+  margin: 20px 0;
+  font-size:2rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  word-wrap: break-word;
+}
+
+.page-header {
   margin: 20px 0;
 }
 

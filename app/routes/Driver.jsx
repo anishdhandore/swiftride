@@ -5,8 +5,9 @@ import Trips from './Trips';
 
 const tripStorageAddress = '0x50B8c6ACc233e57D7139b6ae0223B452Cfc15883'; // Address of the deployed contract
 
-export default function Driver({ onTripSelected, onReturnHome }) {
+export default function Driver({ onTripSelected }) {
   const [trips, setTrips] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTrips = async () => {
@@ -23,7 +24,7 @@ export default function Driver({ onTripSelected, onReturnHome }) {
             const tripId = await tripStorage.activeTrips(i);
             const trip = await tripStorage.trips(tripId);
             // Don't print trips submitted by yourself
-            if (trip.rider !== currentUserAddress) {
+            if (trip.rider !== currentUserAddress && trip.active) {
               fetchedTrips.push({
                 id: trip.id,
                 rider: trip.rider,
@@ -40,6 +41,7 @@ export default function Driver({ onTripSelected, onReturnHome }) {
           console.error('Error fetching trips:', error);
         }
       }
+      setLoading(false);
     };
 
     fetchTrips();
@@ -66,13 +68,14 @@ export default function Driver({ onTripSelected, onReturnHome }) {
     <div>
       <h2 className="page-title">Driver</h2>
       <div className="trips-list">
-        
-        {trips.length > 0 ? (
+        {loading ? (
+          <p>Loading trips...</p>
+        ) : trips.length > 0 ? (
           trips.map((trip) => (
             <Trips key={trip.id} trip={trip} userType="driver" onTripSelected={handleTripSelected} />
           ))
         ) : (
-          <p>Loading trips...</p>
+          <p>No trips available</p>
         )}
       </div>
     </div>
