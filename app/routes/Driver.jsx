@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import tripStorageABI from '../contracts/TripStorageABI.json'; // ABI of the contract
 import Trips from './Trips';
 
-const tripStorageAddress = '0x52455f9ea950F9A7cDA7d76E314Bb06D7f57abA2'; // Address of the deployed contract
+const tripStorageAddress = '0x50B8c6ACc233e57D7139b6ae0223B452Cfc15883'; // Address of the deployed contract
 
 export default function Driver({ onTripSelected, onReturnHome }) {
   const [trips, setTrips] = useState([]);
@@ -55,7 +55,7 @@ export default function Driver({ onTripSelected, onReturnHome }) {
         const tx = await tripStorage.selectTrip(tripId);
         await tx.wait();
         console.log('Trip accepted:', tripId);
-        onTripSelected(tripId, connectedAccount); // Pass the driver's connected account
+        onTripSelected(tripId); // Pass the driver's connected account
       } catch (error) {
         console.error('Error accepting trip:', error);
       }
@@ -66,6 +66,7 @@ export default function Driver({ onTripSelected, onReturnHome }) {
     <div>
       <h2 className="page-title">Driver</h2>
       <div className="trips-list">
+        
         {trips.length > 0 ? (
           trips.map((trip) => (
             <Trips key={trip.id} trip={trip} userType="driver" onTripSelected={handleTripSelected} />

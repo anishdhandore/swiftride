@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import LocationInput from './LocationInput';
 import tripStorageABI from '../contracts/TripStorageABI.json'; // ABI of the contract
 
-const tripStorageAddress = '0x52455f9ea950F9A7cDA7d76E314Bb06D7f57abA2'; // Address of the deployed contract
+const tripStorageAddress = '0x50B8c6ACc233e57D7139b6ae0223B452Cfc15883'; // Address of the deployed contract
 
 export default function Rider({ onTripSubmitted }) {
   const [pickupLocation, setPickupLocation] = useState('');
@@ -16,6 +16,8 @@ export default function Rider({ onTripSubmitted }) {
       alert('Please enter a valid pickup and dropoff location');
       return;
     }
+
+    
 
     // Interact with the smart contract to store the trip data
     if (typeof window.ethereum !== 'undefined') {

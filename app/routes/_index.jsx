@@ -5,7 +5,7 @@ import Driver from './Driver';
 import TripStatus from './TripStatus';
 import tripStorageABI from '../contracts/TripStorageABI.json'; // ABI of the contract
 
-const tripStorageAddress = '0x52455f9ea950F9A7cDA7d76E314Bb06D7f57abA2'; // Address of the deployed contract
+const tripStorageAddress = '0x50B8c6ACc233e57D7139b6ae0223B452Cfc15883'; // Address of the deployed contract
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
@@ -13,7 +13,7 @@ export default function Index() {
   const [showWalletPrompt, setShowWalletPrompt] = useState(false);
   const [connectedAccount, setConnectedAccount] = useState(null);
   const [userType, setUserType] = useState(null);
-  const [tripStatus, setTripStatus] = useState(null);
+  const [tripRole, setTripRole] = useState(null);
   const [activeTrips, setActiveTrips] = useState([]);
 
   //Geolocation
@@ -71,7 +71,11 @@ export default function Index() {
   
   //  User type
   const handleUserTypeSelection = (type) => {
-    setUserType(type);
+    if (tripRole) {
+      alert('Please complete your current trip before selecting a new role.');
+    } else {
+      setUserType(type);
+    }
   };
 
   const handleReturnHome = () => {
@@ -79,53 +83,67 @@ export default function Index() {
   };
 
   const handleTripSubmitted = () => {
+    console.log('TRIP SUBMITTED');
     setUserType(null);
-    setTripStatus('rider');
+    setTripRole('rider');
+    fetchActiveTrips();
   };
 
-  const handleTripSelected = (tripId) => {
-    const trip = activeTrips.find((trip) => trip.id === tripId);
-    if (trip.rider === connectedAccount || trip.driver === connectedAccount) {
-      setTripStatus('driver');
-    }
+  const handleTripSelected = () => {
+    console.log('TRIP SELECTED');
+    setUserType(null);
+    setTripRole('driver');
+    fetchActiveTrips();
   };
 
   const fetchActiveTrips = async () => {
+    console.log('fetchActiveTrips called'); // console
     if (typeof window.ethereum !== 'undefined') {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const tripStorage = new ethers.Contract(tripStorageAddress, tripStorageABI, provider);
   
       try {
         const activeTripCount = await tripStorage.getActiveTripCount();
+        console.log('activeTripCount: ', activeTripCount); // console
         const fetchedTrips = [];
-  
         for (let i = 0; i < activeTripCount; i++) {
           const tripId = await tripStorage.activeTrips(i);
           const trip = await tripStorage.trips(tripId);
-  
-          fetchedTrips.push({
-            id: trip.id,
-            rider: trip.rider,
-            driver: trip.driver,
-            pickupLocation: trip.pickupLocation,
-            dropoffLocation: trip.dropOffLocation,
-            active: trip.active,
-            completed: trip.completed,
-          });
+          console.log('trip:', trip); // Add this log
+          console.log('rider: ', trip.rider);
+          console.log('driver: ', trip.driver);
+          console.log('connectedAccount: ', connectedAccount);
+          if (trip.rider.toLowerCase() === connectedAccount.toLowerCase() || trip.driver.toLowerCase() === connectedAccount.toLowerCase()) {
+            if (connectedAccount.toLowerCase() === trip.rider.toLowerCase()) {
+              setTripRole('rider');
+            } else {
+              setTripRole('driver');
+            }
+            fetchedTrips.push({
+              id: trip.id,
+              rider: trip.rider,
+              driver: trip.driver,
+              pickupLocation: trip.pickupLocation,
+              dropoffLocation: trip.dropOffLocation,
+              active: trip.active,
+              completed: trip.completed,
+            });
+          }
         }
-  
+        console.log('fetchedTrips: ', fetchedTrips.length);
         setActiveTrips(fetchedTrips);
       } catch (error) {
         console.error('Error fetching active trips:', error);
       }
     }
   };
-
+  
   useEffect(() => {
     fetchActiveTrips();
   }, [connectedAccount]);
 
-  console.log('Active Trips:', activeTrips);
+  console.log('tripRole: ', tripRole);
+  console.log('userType: ', userType);
   return (
     <div className="app">
       <head>
@@ -160,11 +178,8 @@ export default function Index() {
               {!userType && activeTrips.length > 0 && (
                 <div>
                   {activeTrips.map((trip) => {
-                    // Add a console log to check if the TripStatus component is being rendered
-                    console.log('Rendering TripStatus for trip ID:', trip.id);
-
                     return (
-                      <TripStatus key={trip.id} userType={tripStatus} selectedTrip={trip} connectedAccount={connectedAccount} />
+                      <TripStatus key={trip.id} userType={tripRole} selectedTrip={trip} connectedAccount={connectedAccount} />
                     );
                   })}
                 </div>
