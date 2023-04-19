@@ -169,7 +169,7 @@ export default function Index() {
         {connectedAccount ? (
           userType ? (
             userType === 'rider' ? (
-              <Rider onTripSubmitted={handleTripSubmitted} onReturnHome={handleReturnHome} userType={userType} />
+              <Rider onTripSubmitted={handleTripSubmitted} onReturnHome={handleReturnHome} userType={userType} latitude={latitude} longitude={longitude} />
             ) : (
               <Driver onTripSelected={handleTripSelected} onReturnHome={handleReturnHome} userType={userType} />
             )
