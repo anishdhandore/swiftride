@@ -40,7 +40,7 @@ console.log('COORDS: ', {latitude}, {longitude});
 useEffect(() => {
   if (userLocation) {
     const googleScript = document.createElement('script');
-    googleScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAQX5mgD3zPot1LnEnaHCChljJzdUf6ziQ`;
+    googleScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAQX5mgD3zPot1LnEnaHCChljJzdUf6ziQ&libraries=&callback=initMap`;
     window.document.body.appendChild(googleScript);
 
     console.log('Adding Google Maps API load event listener');
