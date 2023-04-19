@@ -8,7 +8,9 @@ const Trips = ({ trip, userType, onTripSelected }) => {
         <p>Rider: {trip.rider}</p>
       </div>
       {userType === 'driver' && trip.active && (
-        <button className="select-trip" onClick={() => onTripSelected(trip.id)}>Select Trip</button>
+        <button className="select-trip" onClick={() => onTripSelected(trip.id)}>
+          <span>Select Trip</span>
+        </button>
       )}
     </div>
   );

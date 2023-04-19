@@ -29,6 +29,23 @@ body {
   .app {
     padding: 10px;
   }
+
+  .trip-info h3 {
+    font-size: 1rem;
+  }
+
+  .trip-info p {
+    font-size: 0.8rem;
+  }
+
+  .select-trip {
+    font-size: 0.8rem;
+    padding: 5px;
+  }
+
+  #location{
+    font-size: 0.8rem;
+  }
 }
 /* End of responsive styles */
 
@@ -150,6 +167,16 @@ input[type="text"]:focus {
   font-size: 1.2rem;
   line-height: 1.4;
   word-wrap: break-word;
+}
+
+.trip-info h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.trip-info p {
+  font-size: 1rem;
+  margin: 0;
 }
 
 .select-trip {
