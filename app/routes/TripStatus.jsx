@@ -6,7 +6,7 @@ export default function TripStatus({ userType, selectedTrip, connectedAccount })
   const isDriver = connectedAccount === driver;
 
   return (
-    <div>
+    <div className="trip-info">
       <h2 className="page-header">{userType === 'rider' ? 'Rider' : 'Driver'} Trip Status</h2>
       <p>Running total and trip status will be displayed here.</p>
       <hr />

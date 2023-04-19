@@ -55,6 +55,7 @@ header {
 
 .page-header {
   margin: 20px 0;
+  word-wrap: break-word;
 }
 
 .app-description {
@@ -148,6 +149,7 @@ input[type="text"]:focus {
 .trip-info {
   font-size: 1.2rem;
   line-height: 1.4;
+  word-wrap: break-word;
 }
 
 .select-trip {
@@ -170,4 +172,10 @@ input[type="text"]:focus {
 
 .select-trip:hover {
   background-color: #3498db;
+}
+
+#location {
+  word-wrap: break-word;
+  font-size: 1.2rem;
+  line-height: 1.4;
 }
