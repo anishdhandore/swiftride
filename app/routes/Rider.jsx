@@ -2,12 +2,21 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ethers } from 'ethers';
 import LocationInput from './LocationInput';
 import tripStorageABI from '../contracts/TripStorageABI.json'; // ABI of the contract
+import Directions from './Directions';
 
 const tripStorageAddress = '0x50B8c6ACc233e57D7139b6ae0223B452Cfc15883'; // Address of the deployed contract
+
+// Add a function to calculate the estimated trip cost
+const calculateTripCost = (distanceInMeters) => {
+  const distanceInKilometers = distanceInMeters / 1000;
+  const costPerKilometer = 1.5; // Assuming a fixed cost per kilometer
+  return distanceInKilometers * costPerKilometer;
+};
 
 export default function Rider({ onTripSubmitted, latitude, longitude }) {
   const [pickupLocation, setPickupLocation] = useState('');
   const [dropoffLocation, setDropoffLocation] = useState('');
+  const [distance, setDistance] = useState(null);
 
   const mapRef = useRef(null);
   const [userLocation, setUserLocation] = useState({lat:latitude,lng:longitude});
@@ -36,29 +45,7 @@ export default function Rider({ onTripSubmitted, latitude, longitude }) {
     }
   };
 console.log('COORDS: ', {latitude}, {longitude});
-// Initialize the map
-useEffect(() => {
-  if (userLocation) {
-    const googleScript = document.createElement('script');
-    googleScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAQX5mgD3zPot1LnEnaHCChljJzdUf6ziQ&libraries=&callback=initMap`;
-    window.document.body.appendChild(googleScript);
 
-    console.log('Adding Google Maps API load event listener');
-    googleScript.addEventListener('load', () => {
-      console.log('Google Maps API loaded:', typeof window.google.maps !== 'undefined');
-
-      const map = new window.google.maps.Map(mapRef.current, {
-        center: userLocation,
-        zoom: 14,
-      });
-
-      const marker = new window.google.maps.Marker({
-        position: userLocation,
-        map: map,
-      });
-    });
-  }
-}, [userLocation]);
 
 console.log('POSITION: ', userLocation);
   return (
@@ -80,8 +67,20 @@ console.log('POSITION: ', userLocation);
         />
         <br />
         <button type="submit" className="submit-button">Submit</button>
-        <div ref={mapRef} style={{ width: '100%', height: '400px' }} />
       </form>
+      <div>
+        <Directions
+          origin={pickupLocation}
+          destination={dropoffLocation}
+          onDistanceChange={setDistance}
+          userLocation={userLocation}
+        />
+        {distance && ( // Display estimated trip cost when distance is available
+          <p>
+            Estimated trip cost: ${calculateTripCost(distance).toFixed(2)}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
