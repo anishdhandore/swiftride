@@ -12,6 +12,7 @@ const Directions = ({ origin, destination, onDistanceChange, userLocation }) => 
       if (origin && destination) {
         const directionsService = new window.google.maps.DirectionsService();
         const directionsRenderer = new window.google.maps.DirectionsRenderer();
+        const geocoder = new window.google.maps.Geocoder();
 
         directionsRenderer.setMap(map);
 
@@ -35,7 +36,7 @@ const Directions = ({ origin, destination, onDistanceChange, userLocation }) => 
             console.error('Directions request failed due to ' + status);
           }
         });
-      } else if (userLocation) {
+      } else {
         map.setCenter(userLocation);
 
         const marker = new window.google.maps.Marker({

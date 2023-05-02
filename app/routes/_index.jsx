@@ -175,11 +175,11 @@ export default function Index() {
             )
           ) : (
             <div>
-              {!userType && activeTrips.length > 0 && (
+              {!userType && activeTrips.length > 0 && !isNaN(latitude) && !isNaN(longitude) && (
                 <div>
                   {activeTrips.map((trip) => {
                     return (
-                      <TripStatus key={trip.id} userType={tripRole} selectedTrip={trip} connectedAccount={connectedAccount} />
+                      <TripStatus key={trip.id} userType={tripRole} selectedTrip={trip} connectedAccount={connectedAccount} latitude={latitude} longitude={longitude}/>
                     );
                   })}
                 </div>
