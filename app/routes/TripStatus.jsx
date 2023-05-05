@@ -80,21 +80,23 @@ export default function TripStatus({ userType, selectedTrip, connectedAccount, l
       <div className="trip-status">
         <h2 className="page-header">Trip Status {userType === 'rider' ? 'Rider' : 'Driver'} </h2>
           {isDriver && !selectedTrip.tripStarted ? (
-            <Directions
-            origin={selectedTrip.pickupLocation}
-            destination={selectedTrip.dropoffLocation}
-            onDistanceChange={setDistance}
-            userLocation={userLocation}
-            displayType="notStarted"
-          />
+            <div className="directions-container">
+              <Directions
+              origin={selectedTrip.pickupLocation}
+              destination={selectedTrip.dropoffLocation}
+              onDistanceChange={setDistance}
+              userLocation={userLocation}
+              displayType="notStarted"/>
+            </div>
           ) : (
-            <Directions
-            origin={selectedTrip.pickupLocation}
-            destination={selectedTrip.dropoffLocation}
-            onDistanceChange={setDistance}
-            userLocation={userLocation}
-            displayType="started"
-          />
+            <div className="directions-container">
+              <Directions
+              origin={selectedTrip.pickupLocation}
+              destination={selectedTrip.dropoffLocation}
+              onDistanceChange={setDistance}
+              userLocation={userLocation}
+              displayType="started"/>
+            </div>
           )}          
           {!selectedTrip.tripStarted && isRider && selectedTrip.driver !== '0x0000000000000000000000000000000000000000' &&(
             <div className="status-text">

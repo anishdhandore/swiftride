@@ -46,6 +46,20 @@ body {
   #location{
     font-size: 0.8rem;
   }
+
+  .trip-status, .trip-card {
+    flex-direction: column;
+  }
+
+  .trip-info, .status-text, .running-total {
+    font-size: 0.9rem;
+  }
+
+  .submit-button {
+    font-size: 0.8rem;
+    padding: 5px;
+    margin: 5px 0;
+  }
 }
 /* End of responsive styles */
 
@@ -247,4 +261,13 @@ input[type="text"]:focus {
   border-radius: 5px;
   margin-bottom: 10px;
   word-wrap: break-word;
+}
+
+.directions-container {
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.directions-container iframe {
+  max-width: 100%;
 }
