@@ -12,7 +12,7 @@ const Trips = ({ trip, userType, onTripSelected }) => {
   const [distance, setDistance] = useState(null);
 
   return (
-    <div className={`trip-card ${userType}`}>
+    <div className="trip-card">
       <div className="trip-info">
         <h3>Pick up: {trip.pickupLocation} <br></br>- <br></br>Drop off: {trip.dropoffLocation}</h3>
         <div className="directions-container">
