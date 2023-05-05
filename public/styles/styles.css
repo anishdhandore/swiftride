@@ -68,6 +68,18 @@ body {
   .location-text {
     font-size: 0.9rem;
   }
+
+  .trip-status, .trip-card {
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .trip-status .directions-container,
+  .trip-card .directions-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-bottom: 10px;
+  }
 }
 /* End of responsive styles */
 
@@ -277,7 +289,6 @@ input[type="text"]:focus {
 .directions-container {
   width: 100%;
   overflow-x: scroll;
-  padding-top: 56.25%;
 }
 
 .directions-container iframe {
