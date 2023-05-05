@@ -28,7 +28,7 @@
 		],
 		"name": "completeTrip",
 		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -76,6 +76,19 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_tripId",
+				"type": "uint256"
+			}
+		],
+		"name": "startTrip",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "tripId",
 		"outputs": [
@@ -114,18 +127,23 @@
 				"type": "string"
 			},
 			{
-				"internalType": "address",
+				"internalType": "address payable",
 				"name": "rider",
 				"type": "address"
 			},
 			{
-				"internalType": "address",
+				"internalType": "address payable",
 				"name": "driver",
 				"type": "address"
 			},
 			{
 				"internalType": "bool",
 				"name": "active",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "tripStarted",
 				"type": "bool"
 			},
 			{

@@ -169,6 +169,15 @@ input[type="text"]:focus {
   word-wrap: break-word;
 }
 
+.trip-status {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
 .trip-info h3 {
   font-size: 1.2rem;
   margin: 0;
@@ -203,5 +212,39 @@ input[type="text"]:focus {
 
 #location span {
   display: inline-block;
+  word-wrap: break-word;
+}
+
+.status-text {
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.running-total {
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  word-wrap: break-word;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.location-text {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
   word-wrap: break-word;
 }

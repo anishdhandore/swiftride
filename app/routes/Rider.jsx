@@ -4,7 +4,7 @@ import LocationInput from './LocationInput';
 import tripStorageABI from '../contracts/TripStorageABI.json'; // ABI of the contract
 import Directions from './Directions';
 
-const tripStorageAddress = '0x50B8c6ACc233e57D7139b6ae0223B452Cfc15883'; // Address of the deployed contract
+const tripStorageAddress = '0x841731c808cD5689F1f8e09a60259B8fa31EE3b2'; // Address of the deployed contract
 
 // Add a function to calculate the estimated trip cost
 const calculateTripCost = (distanceInMeters) => {
@@ -74,11 +74,12 @@ console.log('POSITION: ', userLocation);
           destination={dropoffLocation}
           onDistanceChange={setDistance}
           userLocation={userLocation}
+          displayType="rider"
         />
         {distance && ( // Display estimated trip cost when distance is available
-          <p>
-            Estimated trip cost: ${calculateTripCost(distance).toFixed(2)}
-          </p>
+          <div className="status-text">
+            <p><strong>Estimated trip cost: ${calculateTripCost(distance).toFixed(2)}</strong></p>
+          </div>   
         )}
       </div>
     </div>

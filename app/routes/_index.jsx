@@ -5,7 +5,7 @@ import Driver from './Driver';
 import TripStatus from './TripStatus';
 import tripStorageABI from '../contracts/TripStorageABI.json'; // ABI of the contract
 
-const tripStorageAddress = '0x50B8c6ACc233e57D7139b6ae0223B452Cfc15883'; // Address of the deployed contract
+const tripStorageAddress = '0x841731c808cD5689F1f8e09a60259B8fa31EE3b2'; // Address of the deployed contract
 
 export default function Index() {
   const [latitude, setLatitude] = useState('-');
@@ -96,6 +96,13 @@ export default function Index() {
     fetchActiveTrips();
   };
 
+  const handleTripCompleted = () => {
+    console.log('TRIP COMPLETED');
+    setUserType(null);
+    setTripRole(null);
+    fetchActiveTrips();
+  };
+
   const fetchActiveTrips = async () => {
     console.log('fetchActiveTrips called'); // console
     if (typeof window.ethereum !== 'undefined') {
@@ -112,6 +119,7 @@ export default function Index() {
           console.log('trip:', trip); // Add this log
           console.log('rider: ', trip.rider);
           console.log('driver: ', trip.driver);
+          console.log('started: ', trip.tripStarted);
           console.log('connectedAccount: ', connectedAccount);
           if (trip.rider.toLowerCase() === connectedAccount.toLowerCase() || trip.driver.toLowerCase() === connectedAccount.toLowerCase()) {
             if (connectedAccount.toLowerCase() === trip.rider.toLowerCase()) {
@@ -126,6 +134,7 @@ export default function Index() {
               pickupLocation: trip.pickupLocation,
               dropoffLocation: trip.dropOffLocation,
               active: trip.active,
+              tripStarted: trip.tripStarted,
               completed: trip.completed,
             });
           }
@@ -179,16 +188,18 @@ export default function Index() {
                 <div>
                   {activeTrips.map((trip) => {
                     return (
-                      <TripStatus key={trip.id} userType={tripRole} selectedTrip={trip} connectedAccount={connectedAccount} latitude={latitude} longitude={longitude}/>
+                      <TripStatus key={trip.id} 
+                        userType={tripRole} 
+                        selectedTrip={trip} 
+                        connectedAccount={connectedAccount} 
+                        latitude={latitude} longitude={longitude}
+                        onTripUpdated={fetchActiveTrips}
+                        onTripCompleted={handleTripCompleted}/>
                     );
                   })}
                 </div>
               )}
               <div id="location">
-                Latitude: <span>{latitude}</span>
-                <br />
-                Longitude: <span>{longitude}</span>
-                <br />
                 <p>
                   Your connected account is: <strong>{connectedAccount}</strong>
                 </p>
