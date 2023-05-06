@@ -119,7 +119,7 @@ export default function TripStatus({ userType, selectedTrip, connectedAccount, l
               )}           
             </div>
           )}
-        </div>
+      </div>
         <hr />
         <h2 className="page-header">Trip Details</h2>
         <div className = "location-text">

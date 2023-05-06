@@ -115,6 +115,13 @@ body {
 
   .trips-list {
     padding: 0 10px;
+    gap: 10px;
+  }
+
+  .trip-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
 }
 /* End of responsive styles */
