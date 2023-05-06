@@ -23,7 +23,7 @@ const Trips = ({ trip, userType, onTripSelected }) => {
             userLocation={trip.pickupLocation}
             displayType="rider"/>
         </div>
-        <p>Rider: {trip.rider}</p>
+        <p>   Rider: {trip.rider}</p>
         <div className="status-text">
             <p><strong>Estimated trip cost: ${calculateTripCost(distance).toFixed(2)}</strong></p>
         </div>
