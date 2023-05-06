@@ -13,7 +13,7 @@ const Trips = ({ trip, userType, onTripSelected }) => {
 
   return (
     <div>
-      <div className="trip-card">
+      <div className="trip-status">
         <div className="trip-info">
           <h3>Pick up: {trip.pickupLocation} <br></br>- <br></br>Drop off: {trip.dropoffLocation}</h3>
           <div className="directions-container">
