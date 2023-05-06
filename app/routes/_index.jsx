@@ -33,12 +33,21 @@ export default function Index() {
       maximumAge: 0
     };
 
-    if ('geolocation' in navigator) {
-      const watchId = navigator.geolocation.watchPosition(success, error, options);
-      return () => navigator.geolocation.clearWatch(watchId);
-    } else {
-      console.warn('Geolocation is not supported by your browser');
-    }
+    const getLocation = () => {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(success, error, options);
+      } else {
+        console.warn('Geolocation is not supported by your browser');
+      }
+    };
+  
+    getLocation(); // Get initial location
+  
+    const intervalId = setInterval(() => {
+      getLocation(); // Update location every 30 seconds
+    }, 30000);
+  
+    return () => clearInterval(intervalId); // Clear interval on unmount
   }, []);
 
   //MetaMask

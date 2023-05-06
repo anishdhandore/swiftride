@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 
 const Directions = ({ origin, destination, onDistanceChange, userLocation, displayType }) => {
   const mapRef = useRef(null);
-
   useEffect(() => {
     if (window.google) {
       const map = new window.google.maps.Map(mapRef.current, {
@@ -16,6 +15,7 @@ const Directions = ({ origin, destination, onDistanceChange, userLocation, displ
       console.log('userLocation: ', userLocation);
       console.log('origin: ', origin);
       console.log('destination: ', destination);
+
       if (displayType === 'started' && userLocation && destination) {
         const request = {
           origin: userLocation,
