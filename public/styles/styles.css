@@ -122,7 +122,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    padding-left: 5px;
+    padding-left: 10px;
   }
 }
 /* End of responsive styles */
