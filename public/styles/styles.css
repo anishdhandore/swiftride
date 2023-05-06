@@ -208,7 +208,6 @@ input[type="text"]:focus {
 }
 
 .trip-card {
-  min-width: 0;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -217,9 +216,6 @@ input[type="text"]:focus {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  box-sizing: border-box;
 }
 
 .trip-info {

@@ -12,26 +12,28 @@ const Trips = ({ trip, userType, onTripSelected }) => {
   const [distance, setDistance] = useState(null);
 
   return (
-    <div className="trip-card">
-      <div className="trip-info">
-        <h3>Pick up: {trip.pickupLocation} <br></br>- <br></br>Drop off: {trip.dropoffLocation}</h3>
-        <div className="directions-container">
-          <Directions
-            origin={trip.pickupLocation}
-            destination={trip.dropoffLocation}
-            onDistanceChange={setDistance}
-            userLocation={trip.pickupLocation}
-            displayType="rider"/>
+    <div>
+      <div className="trip-card">
+        <div className="trip-info">
+          <h3>Pick up: {trip.pickupLocation} <br></br>- <br></br>Drop off: {trip.dropoffLocation}</h3>
+          <div className="directions-container">
+            <Directions
+              origin={trip.pickupLocation}
+              destination={trip.dropoffLocation}
+              onDistanceChange={setDistance}
+              userLocation={trip.pickupLocation}
+              displayType="rider"/>
+          </div>
+          <p>   Rider: {trip.rider}</p>
+          <div className="status-text">
+              <p><strong>Estimated trip cost: ${calculateTripCost(distance).toFixed(2)}</strong></p>
+          </div>
+          {userType === 'driver' && trip.active && (
+            <button className="select-trip" onClick={() => onTripSelected(trip.id)}>
+              Select Trip
+            </button>       
+          )}
         </div>
-        <p>   Rider: {trip.rider}</p>
-        <div className="status-text">
-            <p><strong>Estimated trip cost: ${calculateTripCost(distance).toFixed(2)}</strong></p>
-        </div>
-        {userType === 'driver' && trip.active && (
-          <button className="select-trip" onClick={() => onTripSelected(trip.id)}>
-            Select Trip
-          </button>       
-        )}
       </div>
     </div>
   );
