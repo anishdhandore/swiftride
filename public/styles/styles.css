@@ -23,6 +23,10 @@ body {
   .app {
     padding: 15px;
   }
+
+  .trips-list {
+    padding: 0 5px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -108,7 +112,10 @@ body {
     box-sizing: border-box;
     width: 100%;
   }
-  
+
+  .trips-list {
+    padding: 0 10px;
+  }
 }
 /* End of responsive styles */
 
@@ -268,6 +275,8 @@ input[type="text"]:focus {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .select-trip:hover {
