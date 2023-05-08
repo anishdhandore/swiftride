@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import tripStorageABI from '../contracts/TripStorageABI.json'; // ABI of the contract
 import Trips from './Trips';
 
-const tripStorageAddress = '0x50B8c6ACc233e57D7139b6ae0223B452Cfc15883'; // Address of the deployed contract
+const tripStorageAddress = '0x841731c808cD5689F1f8e09a60259B8fa31EE3b2'; // Address of the deployed contract
 
 export default function Driver({ onTripSelected }) {
   const [trips, setTrips] = useState([]);

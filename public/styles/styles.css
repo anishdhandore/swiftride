@@ -23,6 +23,10 @@ body {
   .app {
     padding: 15px;
   }
+
+  .trips-list {
+    padding: 0 5px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -30,8 +34,20 @@ body {
     padding: 10px;
   }
 
+  .trip-card {
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
   .trip-info h3 {
     font-size: 1rem;
+    margin: 0;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+  
+  .trip-info p {
+    font-size: 0.8rem;
   }
 
   .trip-info p {
@@ -45,6 +61,68 @@ body {
 
   #location{
     font-size: 0.8rem;
+  }
+
+  .trip-status, .trip-card {
+    flex-direction: column;
+  }
+
+  .trip-info, .status-text, .running-total {
+    font-size: 0.9rem;
+  }
+
+  .submit-button {
+    font-size: 0.8rem;
+    padding: 5px;
+    margin: 5px 0;
+  }
+
+  .trip-status h2 {
+    font-size: 1.2rem;
+  }
+
+  .location-text {
+    font-size: 0.9rem;
+  }
+
+  .trip-status, .trip-card {
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .trip-status .directions-container,
+  .trip-card .directions-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-bottom: 10px;
+  }
+  .directions-container {
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .directions-container iframe {
+    min-width: 350px;
+  }
+
+  .trip-status {
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .trips-list {
+    padding: 0 10px;
+    gap: 10px;
+  }
+
+  .trip-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-left: 10px;
   }
 }
 /* End of responsive styles */
@@ -159,14 +237,24 @@ input[type="text"]:focus {
   margin-bottom: 10px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
 
 .trip-info {
   font-size: 1.2rem;
   line-height: 1.4;
   word-wrap: break-word;
+}
+
+.trip-status {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .trip-info h3 {
@@ -195,6 +283,8 @@ input[type="text"]:focus {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .select-trip:hover {
@@ -203,5 +293,39 @@ input[type="text"]:focus {
 
 #location span {
   display: inline-block;
+  word-wrap: break-word;
+}
+
+.status-text {
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.running-total {
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  word-wrap: break-word;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.location-text {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
   word-wrap: break-word;
 }
